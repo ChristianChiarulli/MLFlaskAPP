@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MyFlaskApp</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+  <body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">MLPortfolio</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/home">Link</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+  <input id="image-selector" type="file">    
+  <input id="weight-selector" type="file">
+  <button id="predict-button">Predict</button>
+  <br />
+  <br />
+  <br />
+  <h4>Dog: <span id="dog-prediction"></span></h4>
+  <h4>Cat: <span id="cat-prediction"></span></h4>
+  <br />
+  <br />
+  <br />
+
+  <div class="row">
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <a href="thing.jpg">
+        <img id = selected-image src="" alt="selected image" width="100%">
+        <div class="caption">
+          <p>Lorem ipsum...</p>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <a href="/w3images/nature.jpg">
+        <img id = "intermediate-image" src="" alt="intermediate-image" style="width:100%">
+        <div class="caption">
+          <p>Lorem ipsum...</p>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <a href="/w3images/fjords.jpg">
+        <img src="" alt="end-image" style="width:100%">
+        <div class="caption">
+          <p>Lorem ipsum...</p>
+        </div>
+      </a>
+    </div>
+  </div>
+  </div>
+
+
+  <script>
+
+    let base64Image;
+    $("#image-selector").change(function() {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let dataURL = reader.result;
+            $('#selected-image').attr("src", dataURL);
+            base64Image = dataURL.replace("data:image/jpeg;base64,","");
+            console.log(dataURL)
+            console.log(base64Image);
+        }
+        reader.readAsDataURL($("#image-selector")[0].files[0]);
+        $("#dog-prediction").text("");
+        $("#cat-prediction").text("");
+    });
+    
+    $("#predict-button").click(function(){
+        let message = {
+            image: base64Image
+        }
+        console.log(message);
+        $.post("http://localhost:5000/predict", JSON.stringify(message), function(response){
+            $("#dog-prediction").text(response.prediction.dog.toFixed(6));
+            $("#cat-prediction").text(response.prediction.cat.toFixed(6));
+            $('#intermediate-image').attr("src", response.prediction.processed_image_url)
+            console.log(response);
+        });
+    });       
+
+  </script>
+
+
+  </body>
+</html>
