@@ -31,3 +31,62 @@
 </html>
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script type="text/javascript" src="jquery/jquery-migrate-1.2.1.min"></script>
+
+  <script>
+    $(function(){
+      $("#navbar").load("parts/header.html"); 
+    });
+  </script> 
+
+  <title>Sample</title>
+</head>
+<body>
+  <div id="navbar"></div>
+</body>
+</html>
+
+
+    <div class="box">  
+    		<input id="image-selector" type="file">    
+    <!--<input id="weight-selector" type="file">-->
+    <button id="predict-button">Predict</button>
+    <br />
+    <br />
+    <br />
+    <h4>Dog: <span id="dog-prediction"></span></h4>
+    <h4>Cat: <span id="cat-prediction"></span></h4>
+    <br />
+    <br />
+    <br />
+
+    <div class="row">
+    <div class="col-md-4">
+      <div class="thumbnail">
+        <a href="thing.jpg">
+          <img id = selected-image src="" alt="selected image" width="100%">
+          <div class="caption">
+            <p>Lorem ipsum...</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="thumbnail">
+        <a href="/w3images/nature.jpg">
+          <img id = "intermediate-image" src="" alt="intermediate-image" style="width:100%">
+          <div class="caption">
+            <p>Lorem ipsum...</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    </div>
+    </div>

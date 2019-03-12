@@ -7,12 +7,11 @@ from keras.models import load_model
 from keras.preprocessing.image import img_to_array
 import tensorflow as tf
 import matplotlib.pyplot as plt
+from flask_cors import CORS  # , cross_origin
 
 
 app = Flask(__name__)
-
-#  APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-app.config['TEMPLATES_AUTO_RELOAD'] = True
+CORS(app)
 
 
 @app.route('/')
@@ -72,7 +71,7 @@ def predict():
         }
     }
     response = jsonify(response)
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    # response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 # @app.route("/upload", methods=['POST'])
